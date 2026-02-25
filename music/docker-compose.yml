@@ -1,0 +1,59 @@
+version: "2"
+services:
+  slskd:
+    image: slskd/slskd
+    container_name: slskd
+    ports:
+      - "5030:5030"
+      - "5031:5031"
+      - "50300:50300"
+    environment:
+      - SLSKD_REMOTE_CONFIGURATION=true
+    volumes:
+      - /opt/media-share:/app
+    restart: always
+
+  navidrome:
+    image: deluan/navidrome:latest
+    user: 0:0 # should be owner of volumes
+    ports:
+      - "4533:4533"
+    restart: unless-stopped
+    #environment:
+    # Optional: put your config options customization here. Examples:
+    # ND_LOGLEVEL: debug
+    volumes:
+      - /opt/media-share/navidrome:/data
+      - /opt/media-share/music:/music:ro
+
+  feishin:
+    container_name: feishin
+    image: "ghcr.io/jeffvli/feishin:latest"
+    environment:
+      - SERVER_NAME=jellyfin # pre defined server name
+      - SERVER_LOCK=true # When true AND name/type/url are set, only username/password can be toggled
+      - SERVER_TYPE=jellyfin # navidrome also works
+      - SERVER_URL= # http://address:port
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=America/Los_Angeles
+    ports:
+      - 9180:9180
+    restart: unless-stopped
+
+  soularr:
+    image: mrusse08/soularr:latest
+    container_name: soularr
+    hostname: soularr
+    user: 1000:1000 # this should be set to your UID and GID, which can be determined via `id -u` and `id -g`, respectively
+    environment:
+      - TZ=Etc/UTC
+      - SCRIPT_INTERVAL=300 # Script interval in seconds
+    volumes:
+      # "You can set /downloads to whatever you want but will then need to change the Slskd download dir in your config file"
+      - /Media/slskd_downloads:/downloads
+        # Select where you are storing your config file.
+        # Leave "/data" since thats where the script expects the config file to be
+      - /Containers/soularr:/data
+    restart: unless-stopped

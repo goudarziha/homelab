@@ -1,0 +1,68 @@
+version: "3"
+
+services:
+  vpn:
+    image: thrnz/docker-wireguard-pia
+    volumes:
+      # Auth token is stored here
+      - ${OPT_DOCKER}/wireguard/configs/pia-wg/pia:/pia
+      # If enabled, the forwarded port is dumped to /pia-shared/port.dat for potential use in other containers
+      - ${OPT_DOCKER}/wireguard/configs/pia-wg/scripts:/pia-shared
+      - /home/scripts:/port-scripts
+    cap_add:
+      - NET_ADMIN
+      # SYS_MODULE might not be needed with a 5.6+ kernel?
+      - SYS_MODULE
+    ports:
+      - 8080:8080 # qBittorrent WebUI
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - LOC=${PIA_LOC}
+      - USER=${PIA_USER}
+      - PASS=${PIA_PASS}
+      - LOCAL_NETWORK=192.168.50.0/24
+      - KEEPALIVE=25
+      - VPNDNS=8.8.8.8,8.8.4.4
+      - PORT_FORWARDING=1
+      - WG_USERSPACE=1
+      - PORT_PERSIST=1
+      - PORT_SCRIPT=/port-scripts/ports.sh
+      - FIREWALL=1
+      - PORT_FILE_CLEANUP=1
+    sysctls:
+      # wg-quick fails to set this without --privileged, so set it here instead if needed
+      - net.ipv4.conf.all.src_valid_mark=1
+      # May as well disable ipv6. Should be blocked anyway.
+      - net.ipv6.conf.default.disable_ipv6=1
+      - net.ipv6.conf.all.disable_ipv6=1
+      - net.ipv6.conf.lo.disable_ipv6=1
+    restart: always
+    labels:
+      - "wud.watch=true"
+      - "com.centurylinklabs.watchtower.enable=true"
+
+    # The container has no recovery logic. Use a healthcheck to catch disconnects.
+    healthcheck:
+      test: ping -c 1 www.google.com || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    network_mode: "service:vpn"
+    volumes:
+      - ${OPT_DOCKER}/qbittorrent:/config
+      - ${NFS_SHARE}:/data
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - WEBUI_PORT=8080
+    restart: unless-stopped
+    depends_on:
+      - vpn
+    labels:
+      - "wud.watch=true"
+      - "com.centurylinklabs.watchtower.enable=true"

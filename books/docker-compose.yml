@@ -1,0 +1,73 @@
+services:
+  calibre:
+    image: ghcr.io/linuxserver/calibre
+    container_name: calibre
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+    volumes:
+      - ${OPT_DOCKER}/calibre/config:/config #change before the ':'
+      - ${NFS_SHARE}/calibre/upload:/uploads #change before the ':'
+      - ${OPT_DOCKER}/calibre/plugins:/plugins #change before the ':'
+      - ${NFS_SHARE}/Calibre_Library:/books #this is where your ebooks will end up
+    ports:
+      - 8081:8080
+      - 8082:8081
+    restart: unless-stopped
+    # networks:
+    # - ebooks
+    labels:
+      - "wud.watch=true"
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  calibre-web:
+    image: lscr.io/linuxserver/calibre-web:latest
+    container_name: calibre-web
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - OAUTHLIB_RELAX_TOKEN_SCOPE=1 #optional
+    volumes:
+      - ${OPT_DOCKER}/calibre-web/config:/config
+      - ${NFS_SHARE}/Calibre_Library:/books
+    ports:
+      - 8083:8083
+    restart: unless-stopped
+
+  kavita:
+    image: lscr.io/linuxserver/kavita:latest
+    container_name: kavita
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${OPT_DOCKER}/kavita/config:/config
+      - ${NFS_SHARE}/Calibre_Library:/books
+    ports:
+      - 5000:5000
+    restart: unless-stopped
+    # networks:
+    # - ebooks
+    labels:
+      - "wud.watch=true"
+      - "com.centurylinklabs.watchtower.enable=true"
+  audiobookshelf:
+    image: ghcr.io/advplyr/audiobookshelf:latest
+    ports:
+      - 13378:80
+    volumes:
+      - ${NFS_SHARE}/audiobooks:/audiobooks
+      - ${NFS_SHARE}/podcasts:/podcasts
+      - ${OPT_DOCKER}/audiobooks:/config
+      - ${OPT_DOCKER}/audiobooks/metadata:/metadata
+    environment:
+      - ${TZ}
+    restart: unless-stopped
+    labels:
+      - "wud.watch=true"
+      - "com.centurylinklabs.watchtower.enable=true"
+# networks:
+# ebooks:
+# external: true

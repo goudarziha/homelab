@@ -1,0 +1,122 @@
+version: "3"
+services:
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    ports:
+      - 9696:9696
+    volumes:
+      - ${OPT_DOCKER}/prowlarr:/config
+      - ${NFS_SHARE}:/data
+    restart: unless-stopped
+    labels:
+      - "wud.watch=true"
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    ports:
+      - 7878:7878
+    volumes:
+      - ${OPT_DOCKER}/radarr:/config
+      - ${NFS_SHARE}:/data
+    restart: unless-stopped
+    labels:
+      - "wud.watch=true"
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    ports:
+      - 8989:8989
+    volumes:
+      - ${OPT_DOCKER}/sonarr:/config
+      - ${NFS_SHARE}:/data
+    restart: unless-stopped
+    labels:
+      - "wud.watch=true"
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  # readarr:
+  #   image: lscr.io/linuxserver/readarr:develop
+  #   environment:
+  #     - PUID=${PUID}
+  #     - PGID=${PGID}
+  #     - TZ=${TZ}
+  #   volumes:
+  #     - ${OPT_DOCKER}/readarr:/config
+  #     - ${NFS_SHARE}:/data
+  #   ports:
+  #     - 8787:8787
+  #   restart: unless-stopped
+  #   labels:
+  #     - 'wud.watch=true'
+  #     - "com.centurylinklabs.watchtower.enable=true"
+
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    ports:
+      - 5055:5055
+    volumes:
+      - ${OPT_DOCKER}/jellyseerr:/app/config
+      - ${NFS_SHARE}:/data
+    restart: unless-stopped
+    labels:
+      - "wud.watch=true"
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  # recyclarr:
+  #   image: ghcr.io/recyclarr/recyclarr
+  #   user: ${PUID}:${PUID}
+  #   volumes:
+  #     - ${OPT_DOCKER}/recyclarr:/config
+  #     - ${NFS_SHARE}:/data
+  #   environment:
+  #     - PUID=${PUID}
+  #     - PGID=${PGID}
+  #     - TZ=${TZ}
+  #   labels:
+  #     - 'wud.watch=true'
+
+  # lidarr:
+  #   image: lscr.io/linuxserver/lidarr:latest
+  #   environment:
+  #     - PUID=${PUID}
+  #     - PGID=${PGID}
+  #     - TZ=${TZ}
+  #   volumes:
+  #     - ${OPT_DOCKER}/lidarr:/config
+  #     - ${NFS_SHARE}:/data
+  #   ports:
+  #     - 8686:8686
+  #   restart: unless-stopped
+
+  sabnzbd:
+    container_name: sabnzbd
+    image: ghcr.io/hotio/sabnzbd:latest
+    restart: unless-stopped
+    ports:
+      - 8088:8080
+      - 9090:9090
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${OPT_DOCKER}/sabnzbd:/config
+      - ${NFS_SHARE}:/data
