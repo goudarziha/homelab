@@ -72,5 +72,19 @@ services:
     healthcheck:
       disable: false
 
+  immich-public-proxy:
+    image: alangrainger/immich-public-proxy:latest
+    container_name: immich-public-proxy
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      PUBLIC_BASE_URL: ${IMMICH_PROXY_PUBLIC_BASE_URL}
+      IMMICH_URL: ${IMMICH_URL}
+    healthcheck:
+      test: curl -s http://localhost:3000/share/healthcheck -o /dev/null || exit 1
+      start_period: 10s
+      timeout: 5s
+
 volumes:
   model-cache:
