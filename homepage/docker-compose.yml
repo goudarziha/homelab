@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  homepage:
+    restart: unless-stopped
+    image: ghcr.io/gethomepage/homepage:latest
+    ports:
+      - 3000:3000
+    volumes:
+      - /opt/homepage:/app/config
+    env_file: .env
+    environment:
+      - PUID=$PUID
+      - PGID=$PGID
+networks: {}
