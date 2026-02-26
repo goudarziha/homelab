@@ -15,7 +15,9 @@ services:
         reservations:
           devices:
             - driver: nvidia
-              capabilities: ["gpu"]
+              # Use all available GPUs
+              count: all
+              capabilities: [gpu]
 
   searxng:
     image: searxng/searxng:latest
