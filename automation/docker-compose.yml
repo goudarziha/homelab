@@ -16,7 +16,7 @@ services:
     depends_on:
       - postgres
     volumes:
-      - ./n8n_data:/home/node/.n8n
+      - n8n_data:/home/node/.n8n
 
   postgres:
     image: postgres:15
@@ -27,4 +27,8 @@ services:
       - POSTGRES_PASSWORD=secretpassword
       - POSTGRES_DB=n8n
     volumes:
-      - ./n8n_postgres_data:/var/lib/postgresql/data
+      - n8n_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  n8n_data: {}
+  n8n_postgres_data: {}
