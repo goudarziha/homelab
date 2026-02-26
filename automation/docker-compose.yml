@@ -35,5 +35,5 @@ services:
     volumes:
       - ./n8n_data:/home/node/.n8n
     depends_on:
-      - app
+      - n8n
     restart: "no"
