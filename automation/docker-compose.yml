@@ -29,7 +29,7 @@ services:
       - ./n8n_postgres_data:/var/lib/postgresql/data
 
   fix-permissions:
-    image: myapp
+    image: n8nio/n8n:latest
     user: root
     command: chmod -R 777 /home/node/.n8n
     volumes:
