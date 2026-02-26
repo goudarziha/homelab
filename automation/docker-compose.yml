@@ -13,6 +13,7 @@ services:
       - TZ=America/New_York
       - PUID=1000
       - PGID=1000
+      - N8N_SECURE_COOKIE=false
     depends_on:
       - postgres
     volumes:
