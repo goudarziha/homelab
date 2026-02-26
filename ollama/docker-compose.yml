@@ -26,7 +26,6 @@ services:
       - 8888:8080
     volumes:
       - searxng:/etc/searxng
-      - ./limiter.toml:/etc/searxng/limiter.toml:rw
     environment:
       - "SEARXNG_BASE_URL=http://localhost:8888/"
     restart: unless-stopped
