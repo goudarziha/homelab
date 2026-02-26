@@ -27,3 +27,13 @@ services:
       - POSTGRES_DB=n8n
     volumes:
       - ./n8n_postgres_data:/var/lib/postgresql/data
+
+  fix-permissions:
+    image: myapp
+    user: root
+    command: chmod -R 777 /home/node/.n8n
+    volumes:
+      - ./n8n_data:/home/node/.n8n
+    depends_on:
+      - app
+    restart: "no"
