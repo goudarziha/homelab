@@ -11,9 +11,10 @@ services:
       - N8N_BASIC_AUTH_USER=admin
       - N8N_BASIC_AUTH_PASSWORD=secretpassword
       - TZ=America/New_York
+      - PUID=1000
+      - PGID=1000
     depends_on:
       - postgres
-    user: 1000:1000
     volumes:
       - ./n8n_data:/home/node/.n8n
 
@@ -27,13 +28,3 @@ services:
       - POSTGRES_DB=n8n
     volumes:
       - ./n8n_postgres_data:/var/lib/postgresql/data
-
-  fix-permissions:
-    image: n8nio/n8n:latest
-    user: root
-    command: chmod -R 777 /home/node/.n8n
-    volumes:
-      - ./n8n_data:/home/node/.n8n
-    depends_on:
-      - n8n
-    restart: "no"
