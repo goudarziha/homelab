@@ -7,9 +7,8 @@ services:
     ports:
       - 8888:8080
     volumes:
-      - searxng:/etc/searxng
-      - ./settings.yml:/etc/searxng/settings.yml
-      - ./limiter.toml:/etc/searxng/limiter.toml
+      - ./config:/etc/searxng:rw
+      - searxng-data:/var/cache/searxng:rw
     environment:
       - "SEARXNG_BASE_URL=http://localhost:8888/"
     restart: unless-stopped
@@ -17,7 +16,7 @@ services:
       - searxng
 
 volumes:
-  searxng: {}
+  searxng-data: {}
 
 networks:
   searxng:
