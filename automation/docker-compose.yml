@@ -79,9 +79,6 @@ services:
       - RABBITMQ_GLOBAL_ENABLED=true
     volumes:
       - evolution_instances:/evolution/instances
-    depends_on:
-      - n8n_rabbitmq
-      - n8n_postgres
     networks:
       - n8n
 
