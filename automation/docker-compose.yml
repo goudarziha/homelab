@@ -23,6 +23,7 @@ services:
       - PGID=${PGID}
       - N8N_SECURE_COOKIE=false
       - RABBITMQ_CONNECTION_URL=amqp://${RABBITMQ_DEFAULT_USER}:${RABBITMQ_DEFAULT_PASS}@rabbitmq:5672
+      - N8N_COMMUNITY_PACKAGES_ALLOW_TOOL_USAGE=true
     depends_on:
       - postgres
     volumes:
