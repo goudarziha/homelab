@@ -64,7 +64,7 @@ services:
       - AUTHENTICATION_API_KEY=${AUTHENTICATION_API_KEY}
       - DATABASE_PROVIDER=postgresql
       - DATABASE_ENABLED=true
-      - DATABASE_CONNECTION_URI=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
+      - DATABASE_CONNECTION_URI=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost:5432/${POSTGRES_DB}
       - DATABASE_CONNECTION_CLIENT_NAME=evolution_exchange
     volumes:
       - evolution_instances:/evolution/instances
