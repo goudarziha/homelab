@@ -1,0 +1,7 @@
+services:
+  linkedin_job_scraper:
+    build: .
+    container_name: linkedin_job_scraper
+    restart: unless-stopped
+    ports:
+      - "5001:5000"

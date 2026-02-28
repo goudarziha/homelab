@@ -1,0 +1,27 @@
+# Environment and secrets (never commit)
+.env
+.env.local
+.env.*.local
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Logs and temp
+*.log
+logs/
+tmp/
+temp/
+*.tmp
+
+# Local override (e.g. docker-compose.override.yml)
+docker-compose.override.yml
+docker-compose.override.yaml
