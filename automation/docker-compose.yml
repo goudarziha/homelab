@@ -30,6 +30,21 @@ services:
     networks:
       - n8n
 
+  redis:
+    image: redis:7-alpine
+    container_name: n8n_redis
+    restart: always
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    networks:
+      - n8n
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   rabbitmq:
     image: rabbitmq:3-management
     container_name: n8n_rabbitmq
@@ -79,6 +94,8 @@ services:
       - RABBITMQ_URI=amqp://${RABBITMQ_DEFAULT_USER}:${RABBITMQ_DEFAULT_PASS}@rabbitmq:5672/default
       - RABBITMQ_EXCHANGE_NAME=evolution_exchange
       - RABBITMQ_GLOBAL_ENABLED=true
+      - CACHE_REDIS_ENABLED=true
+      - CACHE_REDIS_URI=redis://redis:6379
     volumes:
       - evolution_instances:/evolution/instances
     networks:
@@ -87,6 +104,7 @@ services:
 volumes:
   evolution_instances:
   rabbitmq_data:
+  redis_data:
   n8n_data: {}
   n8n_postgres_data: {}
 
