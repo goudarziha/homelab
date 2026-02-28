@@ -72,8 +72,15 @@ services:
       - DATABASE_ENABLED=true
       - DATABASE_CONNECTION_URI=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
       - DATABASE_CONNECTION_CLIENT_NAME=evolution_exchange
+      - RABBITMQ_ENABLED=true
+      - RABBITMQ_URI=amqp://${RABBITMQ_DEFAULT_USER}:${RABBITMQ_DEFAULT_PASS}@rabbitmq:5672/default
+      - RABBITMQ_EXCHANGE_NAME=evolution_exchange
+      - RABBITMQ_GLOBAL_ENABLED=true
     volumes:
       - evolution_instances:/evolution/instances
+    depends_on:
+      - rabbitmq
+      - postgres
     networks:
       - n8n
 
