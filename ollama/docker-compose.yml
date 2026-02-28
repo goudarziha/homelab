@@ -18,6 +18,8 @@ services:
               # Use all available GPUs
               count: all
               capabilities: [gpu]
+    networks:
+      - searxng
 
   open-webui:
     image: ghcr.io/open-webui/open-webui:main
@@ -37,7 +39,13 @@ services:
     extra_hosts:
       - host.docker.internal:host-gateway
     restart: unless-stopped
+    networks:
+      - searxng
 
 volumes:
   ollama: {}
   open-webui: {}
+
+networks:
+  searxng:
+    name: searxng
