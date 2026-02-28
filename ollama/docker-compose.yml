@@ -19,19 +19,6 @@ services:
               count: all
               capabilities: [gpu]
 
-  searxng:
-    image: searxng/searxng:latest
-    container_name: searxng
-    ports:
-      - 8888:8080
-    volumes:
-      - searxng:/etc/searxng
-      - settings.yml:/etc/searxng/settings.yml
-      - limiter.toml:/etc/searxng/limiter.toml
-    environment:
-      - "SEARXNG_BASE_URL=http://localhost:8888/"
-    restart: unless-stopped
-
   open-webui:
     image: ghcr.io/open-webui/open-webui:main
     container_name: open-webui
@@ -39,7 +26,6 @@ services:
       - open-webui:/app/backend/data
     depends_on:
       - ollama
-      - searxng
     ports:
       - 3000:8080
     environment:
@@ -55,4 +41,3 @@ services:
 volumes:
   ollama: {}
   open-webui: {}
-  searxng: {}

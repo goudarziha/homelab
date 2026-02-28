@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  searxng:
+    image: searxng/searxng:latest
+    container_name: searxng
+    ports:
+      - 8888:8080
+    volumes:
+      - searxng:/etc/searxng
+      - settings.yml:/etc/searxng/settings.yml
+      - limiter.toml:/etc/searxng/limiter.toml
+    environment:
+      - "SEARXNG_BASE_URL=http://localhost:8888/"
+    restart: unless-stopped
+    networks:
+      - searxng
+
+volumes:
+  searxng: {}
+
+networks:
+  searxng:
+    name: searxng
