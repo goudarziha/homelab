@@ -84,5 +84,5 @@ volumes:
   n8n_postgres_data: {}
 
 networks:
-  default:
+  n8n:
     name: n8n
