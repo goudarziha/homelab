@@ -41,6 +41,8 @@ services:
       - "15672:15672"
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - n8n
 
   postgres:
     image: postgres:15
