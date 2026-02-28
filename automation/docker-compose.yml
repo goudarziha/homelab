@@ -11,6 +11,7 @@ services:
   n8n:
     image: n8nio/n8n:latest
     restart: unless-stopped
+    container_name: n8n
     ports:
       - "5678:5678"
     environment:
@@ -31,7 +32,7 @@ services:
 
   rabbitmq:
     image: rabbitmq:3-management
-    container_name: rabbitmq
+    container_name: n8n_rabbitmq
     environment:
       - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
       - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
@@ -61,7 +62,7 @@ services:
       - n8n
 
   evolution-api:
-    container_name: evolution_api
+    container_name: n8n_evolution_api
     image: atendai/evolution-api:v2.1.1
     restart: always
     ports:
@@ -79,8 +80,8 @@ services:
     volumes:
       - evolution_instances:/evolution/instances
     depends_on:
-      - rabbitmq
-      - postgres
+      - n8n_rabbitmq
+      - n8n_postgres
     networks:
       - n8n
 
