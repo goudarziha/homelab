@@ -1,15 +1,43 @@
-# see https://docs.searxng.org/admin/settings/settings.html#settings-use-default-settings
+# SearXNG settings
+
 use_default_settings: true
-server:
-  # base_url is defined in the SEARXNG_BASE_URL environment variable, see .env and docker-compose.yml
-  secret_key: "ultrasecretkey" # change this!
-  limiter: false # enable this when running the instance for a public usage on the internet
-  image_proxy: true
-  bind_address: 0.0.0.0
-  bind_port: 8888
-redis:
-  url: redis://redis:6379/0
+
+general:
+  debug: false
+  instance_name: "SearXNG"
+
 search:
+  safe_search: 2
+  autocomplete: "duckduckgo"
   formats:
     - html
     - json
+
+server:
+  # Is overwritten by ${SEARXNG_SECRET}
+  secret_key: "ultrasecretkey"
+  limiter: true
+  image_proxy: true
+  # public URL of the instance, to ensure correct inbound links. Is overwritten
+  # by ${SEARXNG_BASE_URL}.
+  # base_url: http://example.com/location
+
+valkey:
+  # URL to connect valkey database. Is overwritten by ${SEARXNG_VALKEY_URL}.
+  url: valkey://localhost:6379/0
+# preferences:
+#   lock:
+#     - autocomplete
+#     - method
+
+# engines:
+#
+#   - name: fdroid
+#     disabled: false
+#
+#   - name: apk mirror
+#     disabled: false
+#
+#   - name: mediathekviewweb
+#     categories: TV
+#     disabled: false
