@@ -1,12 +1,12 @@
 version: "3.1"
 
 services:
-  linkedin_job_scraper:
-    build: ./linkedin_job_scraper
-    container_name: linkedin_job_scraper
-    restart: unless-stopped
-    ports:
-      - "5001:5000"
+  # linkedin_job_scraper:
+  #   build: ./linkedin_job_scraper
+  #   container_name: linkedin_job_scraper
+  #   restart: unless-stopped
+  #   ports:
+  #     - "5001:5000"
 
   n8n:
     image: n8nio/n8n:latest
