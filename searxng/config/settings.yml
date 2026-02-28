@@ -8,6 +8,6 @@ server:
 redis:
   url: redis://redis:6379/0
 search:
-  format:
+  formats:
     - html
     - json
