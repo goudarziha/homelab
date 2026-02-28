@@ -26,6 +26,8 @@ services:
       - redis
     volumes:
       - n8n_data:/home/node/.n8n
+    networks:
+      - n8n
 
   redis:
     image: redis:alpine
@@ -38,6 +40,8 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    networks:
+      - n8n
 
   postgres:
     image: postgres:15
@@ -53,6 +57,8 @@ services:
       - QUEUE_BULL_REDIS_DB=0
     volumes:
       - n8n_postgres_data:/var/lib/postgresql/data
+    networks:
+      - n8n
 
   evolution-api:
     container_name: evolution_api
@@ -68,9 +74,15 @@ services:
       - DATABASE_CONNECTION_CLIENT_NAME=evolution_exchange
     volumes:
       - evolution_instances:/evolution/instances
+    networks:
+      - n8n
 
 volumes:
   evolution_instances:
   redis_data:
   n8n_data: {}
   n8n_postgres_data: {}
+
+networks:
+  default:
+    name: n8n
