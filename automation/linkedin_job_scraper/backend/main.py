@@ -82,7 +82,8 @@ def get_remoteok_jobs():
     # TODO: add keyword search instead of pulling all jobs
 
     keyword = data.get("keyword")  # None/empty = all jobs; e.g. "engineer" = filtered
-    jobs = extract_remoteok_jobs(keyword)
+    results_wanted = min(int(data.get("results_wanted", 10)), 100)
+    jobs = extract_remoteok_jobs(keyword)[:results_wanted]
 
     # Add id derived from link URL (last path segment)
     for job in jobs:
