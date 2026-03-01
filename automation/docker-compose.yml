@@ -24,6 +24,7 @@ services:
       - N8N_SECURE_COOKIE=false
       - RABBITMQ_CONNECTION_URL=amqp://${RABBITMQ_DEFAULT_USER}:${RABBITMQ_DEFAULT_PASS}@rabbitmq:5672
       - N8N_COMMUNITY_PACKAGES_ALLOW_TOOL_USAGE=true
+      - WEBHOOK_URL=${WEBHOOK_URL}
     depends_on:
       - postgres
     volumes:
