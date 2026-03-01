@@ -112,6 +112,11 @@ services:
       - "4040:4040" # ngrok web UI
     networks:
       - n8n
+    environment:
+      - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}
+      - NGROK_DOMAIN=${NGROK_DOMAIN}
+      - N8N_HOST=${N8N_HOST}
+      - WEBHOOK_URL=${WEBHOOK_URL}
 
 volumes:
   evolution_instances:
