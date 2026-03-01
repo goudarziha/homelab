@@ -98,6 +98,8 @@ services:
       - RABBITMQ_GLOBAL_ENABLED=true
       - CACHE_REDIS_ENABLED=true
       - CACHE_REDIS_URI=redis://redis:6379
+      - CONFIG_SESSION_PHONE_VERSION=2.3000.1023380135
+
     volumes:
       - evolution_instances:/evolution/instances
     networks:
