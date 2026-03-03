@@ -15,8 +15,7 @@ services:
         reservations:
           devices:
             - driver: nvidia
-              # Use all available GPUs
-              count: all
+              count: 1
               capabilities: [gpu]
     networks:
       - searxng
@@ -58,7 +57,7 @@ services:
         reservations:
           devices:
             - driver: nvidia
-              count: all
+              count: 1
               capabilities: [gpu]
     restart: unless-stopped
 
