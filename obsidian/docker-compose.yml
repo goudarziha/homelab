@@ -7,7 +7,7 @@ services:
       - COUCHDB_PASSWORD=${COUCHDB_PASSWORD}
     volumes:
       - ./data:/opt/couchdb/data
-      - ./config/local.ini:/opt/couchdb/etc/local.ini
+      # - ./config/local.ini:/opt/couchdb/etc/local.ini
     ports:
       - "5984:5984"
     restart: unless-stopped
