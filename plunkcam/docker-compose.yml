@@ -1,0 +1,12 @@
+services:
+  plunkcam:
+    build: .
+    container_name: plunkcam
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    # Required for camera access on Raspberry Pi
+    privileged: true
+    devices:
+      - /dev/video0
+      - /dev/vchiq
