@@ -27,10 +27,3 @@ services:
     shm_size: "1gb"
     depends_on:
       - couchdb
-
-volumes:
-  obsidian-sync: {}
-
-networks:
-  obsidian:
-    name: obsidian
