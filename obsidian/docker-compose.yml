@@ -1,0 +1,36 @@
+services:
+  couchdb:
+    image: couchdb:latest
+    container_name: obsidian-sync
+    environment:
+      - COUCHDB_USER=${COUCHDB_USER}
+      - COUCHDB_PASSWORD=${COUCHDB_PASSWORD}
+    volumes:
+      - ./data:/opt/couchdb/data
+      - ./config/local.ini:/opt/couchdb/etc/local.ini
+    ports:
+      - "5984:5984"
+    restart: unless-stopped
+
+  obsidian-remote:
+    image: lscr.io/linuxserver/obsidian:latest
+    container_name: obsidian-remote
+    restart: unless-stopped
+    environment:
+      - PUID=${PGID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ./config:/config
+    ports:
+      - 3000:3000
+    shm_size: "1gb"
+    depends_on:
+      - couchdb
+
+volumes:
+  obsidian-sync: {}
+
+networks:
+  obsidian:
+    name: obsidian
