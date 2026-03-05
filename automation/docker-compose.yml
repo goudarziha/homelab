@@ -121,7 +121,16 @@ services:
       - N8N_HOST=${N8N_HOST}
       - WEBHOOK_URL=${WEBHOOK_URL}
 
+  crawl4ai:
+    image: unclecode/crawl4ai:basic
+    container_name: crawl4ai
+    ports:
+      - "11235:11235"
+    volumes:
+      - crawl4ai_data:/app/data
+
 volumes:
+  crawl4ai_data: {}
   evolution_instances:
   rabbitmq_data:
   redis_data:
