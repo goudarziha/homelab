@@ -64,7 +64,7 @@ services:
 volumes:
   ollama: {}
   open-webui: {}
-  # whisper_cache: {}
+  whisper_cache: {}
 
 networks:
   searxng:
