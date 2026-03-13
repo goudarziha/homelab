@@ -41,25 +41,25 @@ services:
     networks:
       - searxng
 
-  # whisper:
-  #   image: onerahmet/openai-whisper-asr-webservice:latest-gpu
-  #   container_name: whisper
-  #   ports:
-  #     - "9000:9000"
-  #   volumes:
-  #     - whisper_cache:/root/.cache/whisper
-  #     - ./audio:/audio
-  #   environment:
-  #     - ASR_MODEL=medium
-  #     - ASR_ENGINE=openai_whisper
-  #   deploy:
-  #     resources:
-  #       reservations:
-  #         devices:
-  #           - driver: nvidia
-  #             count: 1
-  #             capabilities: [gpu]
-  #   restart: unless-stopped
+  whisper:
+    image: onerahmet/openai-whisper-asr-webservice:latest-gpu
+    container_name: whisper
+    ports:
+      - "9000:9000"
+    volumes:
+      - whisper_cache:/root/.cache/whisper
+      - ./audio:/audio
+    environment:
+      - ASR_MODEL=medium
+      - ASR_ENGINE=openai_whisper
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    restart: unless-stopped
 
 volumes:
   ollama: {}
