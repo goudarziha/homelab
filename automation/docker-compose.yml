@@ -110,9 +110,9 @@ services:
     restart: always
     depends_on:
       - n8n
-    command: http --url=${NGROK_DOMAIN} n8n:5678
+    command: http n8n:5678 --url=https://${NGROK_DOMAIN} --log=stdout
     ports:
-      - "4040:4040" # ngrok web UI
+      - "4040:4040" # ngrok web UI & API
     networks:
       - n8n
     environment:
