@@ -36,3 +36,8 @@ services:
       # Optional, if Pi-hole should get some more processing time
       - SYS_NICE
     restart: unless-stopped
+    labels:
+      - homepage.group=Network
+      - homepage.name=Pi-hole
+      - homepage.icon=pihole.png
+      - homepage.description=Pi-hole is a DNS sinkhole that filters internet traffic for your devices.
