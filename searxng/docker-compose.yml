@@ -21,6 +21,11 @@ services:
       options:
         max-size: "1m"
         max-file: "1"
+    labels:
+      - homepage.group=Search
+      - homepage.name=SearXNG
+      - homepage.icon=searxng.png
+      - homepage.description=SearXNG is a self-hosted search engine.
 
   redis:
     image: docker.io/valkey/valkey:8-alpine
