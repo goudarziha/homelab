@@ -41,6 +41,10 @@ services:
     labels:
       - "wud.watch=true"
       - "com.centurylinklabs.watchtower.enable=true"
+      - homepage.group=Network
+      - homepage.name=WireGuard VPN
+      - homepage.icon=wireguard.png
+      - homepage.description=WireGuard VPN is a fast, secure, and easy-to-use VPN.
 
     # The container has no recovery logic. Use a healthcheck to catch disconnects.
     healthcheck:
@@ -66,3 +70,7 @@ services:
     labels:
       - "wud.watch=true"
       - "com.centurylinklabs.watchtower.enable=true"
+      - homepage.group=Network
+      - homepage.name=qBittorrent
+      - homepage.icon=qbittorrent.png
+      - homepage.description=qBittorrent is a free and open-source BitTorrent client.
