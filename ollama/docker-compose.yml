@@ -19,6 +19,11 @@ services:
               capabilities: [gpu]
     networks:
       - searxng
+    labels:
+      - homepage.group=AI
+      - homepage.name=Ollama
+      - homepage.icon=ollama.png
+      - homepage.description=Ollama is a lightweight, open-source model server for running LLMs on your own hardware.
 
   open-webui:
     image: ghcr.io/open-webui/open-webui:main
