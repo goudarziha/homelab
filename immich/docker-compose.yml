@@ -30,6 +30,11 @@ services:
     restart: always
     healthcheck:
       disable: false
+    labels:
+      - homepage.group=Media
+      - homepage.name=Immich
+      - homepage.icon=immich.png
+      - homepage.description=Immich is a self-hosted photo and video backup.
 
   immich-machine-learning:
     container_name: immich_machine_learning
