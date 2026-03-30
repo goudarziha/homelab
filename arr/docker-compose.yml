@@ -15,6 +15,10 @@ services:
     labels:
       - "wud.watch=true"
       - "com.centurylinklabs.watchtower.enable=true"
+      - homepage.group=Media
+      - homepage.name=Prowlarr
+      - homepage.icon=prowlarr.png
+      - homepage.description=Prowlarr is a indexer manager for managing your indexers.
 
   radarr:
     image: lscr.io/linuxserver/radarr:latest
@@ -31,6 +35,10 @@ services:
     labels:
       - "wud.watch=true"
       - "com.centurylinklabs.watchtower.enable=true"
+      - homepage.group=Media
+      - homepage.name=Radarr
+      - homepage.icon=radarr.png
+      - homepage.description=Radarr is a movie collection manager for Radarr.
 
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
@@ -47,6 +55,10 @@ services:
     labels:
       - "wud.watch=true"
       - "com.centurylinklabs.watchtower.enable=true"
+      - homepage.group=Media
+      - homepage.name=Sonarr
+      - homepage.icon=sonarr.png
+      - homepage.description=Sonarr is a TV show collection manager for Sonarr.
 
   # readarr:
   #   image: lscr.io/linuxserver/readarr:develop
@@ -79,6 +91,10 @@ services:
     labels:
       - "wud.watch=true"
       - "com.centurylinklabs.watchtower.enable=true"
+      - homepage.group=Media
+      - homepage.name=Jellyseerr
+      - homepage.icon=jellyseerr.png
+      - homepage.description=Jellyseerr is a request management tool for Jellyfin.
 
   # recyclarr:
   #   image: ghcr.io/recyclarr/recyclarr
@@ -120,3 +136,8 @@ services:
     volumes:
       - ${OPT_DOCKER}/sabnzbd:/config
       - ${NFS_SHARE}:/data
+    labels:
+      - homepage.group=Media
+      - homepage.name=SABnzbd
+      - homepage.icon=sabnzbd.png
+      - homepage.description=SABnzbd is a free and open-source BitTorrent client.
