@@ -54,7 +54,7 @@ services:
     volumes:
       - vane-data:/home/vane/data
     environment:
-      - SEARXNG_API_URL=http://192.168.50.18:8888/search?q=
+      - SEARXNG_API_URL=http://192.168.50.18:8888
       - OLLAMA_API_BASE_URL=http://192.168.50.18:11434/api
     depends_on:
       - searxng
