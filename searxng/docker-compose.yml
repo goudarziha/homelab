@@ -57,7 +57,6 @@ services:
       - SEARXNG_API_URL=http://192.168.50.18:8080/search?q=
       - OLLAMA_API_BASE_URL=http://192.168.50.18:11434/api
     depends_on:
-      - ollama
       - searxng
     restart: unless-stopped
     networks:
